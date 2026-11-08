@@ -3,7 +3,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Research from '../components/Research.astro';
 import Projects from '../components/Projects.astro';
 import TechnicalNotes from '../components/TechnicalNotes.astro';
 import Experience from '../components/Experience.astro';
@@ -16,12 +15,6 @@ const portfolioData = {
   title: 'Research Title',
   description: 'Brief description of yourself, your background, and research interests. Add a professional photo in the photo field below.',
   photo: '', // Add path to your photo here, e.g., '/profile.jpg'
-};
-
-const activityData = {
-  title: 'Experience & Activity',
-  description: 'Description of your main research area, projects, and contributions. Include your academic focus and key achievements.',
-  photo: '', // Add path to activity/research photo here
 };
 
 const projects = [
@@ -76,12 +69,6 @@ const skills = [
     title={portfolioData.title}
     description={portfolioData.description}
     photo={portfolioData.photo}
-  />
-
-  <Research
-    title={activityData.title}
-    description={activityData.description}
-    photo={activityData.photo}
   />
 
   <Projects projects={projects} />
