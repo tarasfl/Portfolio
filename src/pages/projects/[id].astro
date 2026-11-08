@@ -3,54 +3,105 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ProjectGallery from '../../components/ProjectGallery.astro';
 
-// Define all your projects here
-const allProjects: Record<string, {
-  title: string;
-  description: string;
-  longDescription: string;
-  technologies: string[];
-  link?: string;
-  github?: string;
-  date?: string;
-  image?: string;
-}> = {
-  'project-1': {
-    title: 'Project Title',
-    description: 'Brief description',
-    longDescription: `
-      This is the detailed description of your project.
-      
-      You can include multiple paragraphs about what you built, why you built it, 
-      and what you learned from the experience.
-      
-      Include technical details, challenges you overcame, and results.
-    `,
-    technologies: ['Technology 1', 'Technology 2'],
-    link: 'https://project-link.com',
-    github: 'https://github.com/yourusername/project',
-    date: '2024',
-  },
-};
-
-interface Props {
-  params: {
-    id: string;
+// Define all your projects here - MUST be defined inside getStaticPaths for export
+export async function getStaticPaths() {
+  const allProjects: Record<string, any> = {
+    "gimbaled-reaction-cube": {
+      "images": [{"src": "/media/cube-simulation-example.jpg", "alt": "Simulation plots of cube and gimbal angles, rotational speeds and gimbal torque", "caption": "Saved simulation case: cube and gimbal motion, rotational speeds and torque. Model output, not a hardware test or a final specification."}, {"src": "/media/cube-flywheel-simulation.jpg", "alt": "Saved flywheel simulation plots with geometry and motor parameters", "caption": "A second saved simulation case with flywheel and motor parameters. The two figures represent different model configurations."}],
+      "title": "Gimbaled Reaction Wheel Cube",
+      "description": "Simulation and optimisation software for defining the technical specification of a gimbaled reaction wheel cube. Evaluated 19,088 simulated cases across 157 flywheel geometries and developed a weighted design-ranking algorithm.",
+      "longDescription": "I built a nonlinear Python model and evaluated 19,088 simulated cases across 157 flywheel geometries. A weighted optimisation algorithm ranked the alternatives and selected the best design among those tested.\n\nObjective: Investigate whether a single gimbaled reaction wheel can replace three orthogonal flywheels in a cube designed for controlled tipping and balance. The project connects the choice of flywheel geometry with the system’s nonlinear motion and control.\n\nMy role: Nonlinear modelling, simulation and design optimisation. SETU · Final-year project.\n\nMy contribution: Built the nonlinear model in Python to assess the proposed motion and control. Evaluated 157 flywheel geometries through a 19,088-case simulation study. Developed a weighted optimisation algorithm to compare alternatives and select the best tested design.\n\nModel the motion: The Python model provides a simulation environment for investigating the cube’s nonlinear behaviour with a gimbaled reaction wheel.\n\nExplore the design space: The study compares multiple flywheel geometries across simulated cases, connecting mechanical design choices to the proposed motion and control.\n\nRank candidate designs: The software uses weighted min–max normalisation to rank successful runs and refines candidate parameters around the current winner. The main script then transfers the selected flywheel geometry into a servo-specification search constrained by a power limit. This identifies the best tested result, not a global optimum.\n\nScope: The current deliverable is simulation and optimisation software for defining the cube’s technical specification. The saved plots are model predictions, not physical tipping or balance tests. The selected design remains conditional on the model assumptions, tested candidates and optimisation weights.",
+      "technologies": [
+        "Python",
+        "Nonlinear dynamics",
+        "Numerical simulation",
+        "Design optimisation"
+      ],
+      "github": "https://github.com/tarasfl/Gimbaled-Reaction-Cube",
+      "date": "Current final-year project"
+    },
+    "gnss-denied-drone": {
+      "images": [{"src": "/media/drone-hardware.jpg", "alt": "Drone prototype on a workbench with onboard electronics, battery and landing gear", "caption": "Drone prototype during hardware integration."}, {"src": "/media/drone-concept.jpg", "alt": "Conceptual exploded illustration of a drone with flight electronics, onboard computer and stereo cameras", "caption": "Conceptual exploded illustration. Internal components are shown schematically; this is not an assembly photograph or engineering drawing."}, {"src": "/media/drone-dashboard.jpg", "alt": "Drone control dashboard showing stereo views, feature tracks and estimated motion plots", "caption": "Navigation dashboard with stereo imagery, feature tracking and estimated motion. This screenshot alone does not establish the drift metric."}, {"type": "video", "src": "/media/drone-outdoor-test.mp4", "poster": "/media/drone-outdoor-test-poster.jpg", "alt": "Outdoor drone test excerpt", "caption": "20-second silent excerpt from an outdoor drone test, showing the aircraft taking off and moving above the court. The footage does not establish the navigation mode."}, {"type": "video", "src": "/media/drone-navigation-screen.mp4", "poster": "/media/drone-navigation-screen-poster.jpg", "alt": "Screen recording of the navigation dashboard", "caption": "30-second silent excerpt of the navigation dashboard: stereo feature tracking and estimated trajectories update during the recording."}],
+      "title": "Drone Navigation without GNSS",
+      "description": "Co-developed stereo-vision navigation using optical flow, least squares estimation and Kalman filtering. Validated navigation on real data and contributed to drone integration with a team that reached the EUDIS Defence Hackathon Ireland finals.",
+      "longDescription": "Our team reached the hackathon finals. I co-developed and simulated a stereo-vision navigation algorithm, validated navigation on real data at approximately 2% final position drift, and contributed to physical drone integration.\n\nObjective: Estimate drone motion without GNSS by using stereo-vision information. The project explored how visual motion estimation and filtering could support navigation when satellite position information is unavailable.\n\nMy role: Algorithm co-development, simulation and drone integration. EUDIS Defence Hackathon Ireland · Team project.\n\nMy contribution: Co-developed and simulated the stereo-vision algorithm with the team. Combined optical flow, least squares estimation and Kalman filtering. Validated navigation on real data and contributed to physical drone integration.\n\nVision-based motion estimation: The algorithm combined stereo vision and optical flow to obtain information about motion, using least squares estimation as part of the navigation approach.\n\nFiltering and evaluation: Kalman filtering formed part of the estimation pipeline. Navigation was evaluated on real data, with approximately 2% final position drift reported in the academic CV.\n\nTeam integration: Alongside algorithm work and simulation, I contributed to integration with a physical drone. This is distinct from claiming that the reported drift was measured during an autonomous flight.\n\nScope: The approximately 2% figure is reported for the real-data evaluation. The dataset, route length and percentage denominator still need to be specified before the metric can support comparisons with other systems. A fully autonomous flight result is not claimed.",
+      "technologies": [
+        "Stereo vision",
+        "Optical flow",
+        "Least squares",
+        "Kalman filtering"
+      ],
+      "github": "https://github.com/colaider/droneResearch",
+      "date": "October 2026"
+    },
+    "mars-rover-manipulator": {
+      "images": [{"src": "/media/rover-arm-cad.jpg", "alt": "Fusion 360 CAD view of a rover-arm joint bracket and tubular link", "caption": "Rover-arm component CAD: joint bracket and tubular link."}, {"src": "/media/rover-arm-displacement.jpg", "alt": "Fusion 360 total displacement plot for the arm component, with a maximum displayed displacement of 0.694 millimetres", "caption": "Total displacement result from a static structural study. The displayed maximum is 0.694 mm for the shown load case; this is not a stress or factor-of-safety plot."}],
+      "title": "Mars Rover Manipulator",
+      "description": "Designed components for a lightweight six-axis rover arm, evaluated structural behaviour through stress simulation, and developed Python control logic for the SETU European Rover Challenge project.",
+      "longDescription": "I designed components for a lightweight six-axis rover arm, using stress simulation with a factor of safety of 5. I also developed and simulated Python control logic and contributed to mechanical assembly for arm integration.\n\nObjective: Support the development of a lightweight rover manipulator by balancing structural rigidity and mass, while contributing to the control and mechanical integration of the arm.\n\nMy role: Component design, control simulation and mechanical assembly. European Rover Challenge · SETU research project. Supervisor: Andrew Keppel.\n\nMy contribution: Designed components in SolidWorks and Fusion 360. Used stress simulation to assess rigidity and mass with a factor of safety of 5. Developed and simulated Python control logic. Contributed to mechanical assembly to support arm integration.\n\nMechanical design: SolidWorks and Fusion 360 supported component design for the six-axis arm. My role focused on components within the wider university rover project.\n\nStructural assessment: Stress simulation informed the balance between rigidity and mass. The CV reports a factor of safety of 5; the loading assumptions and component-level results are not yet included here.\n\nControl and assembly: I developed and simulated control logic in Python and contributed to mechanical assembly, connecting the design work with the arm’s integration.\n\nScope: The factor of safety relates to the reported stress-simulation work. Payload, positioning accuracy, physical load testing and competition performance are not documented here, so no claims are made about those outcomes.",
+      "technologies": [
+        "SolidWorks",
+        "Fusion 360",
+        "Stress simulation",
+        "Python",
+        "Mechanical assembly"
+      ],
+      "date": "September 2024 – October 2025"
+    },
+    "smartbreadboard": {
+      "images": [{"src": "/media/smartbreadboard-pcb-render.jpg", "alt": "Three-dimensional render of the green Smartbreadboard PCB with three integrated circuits and connection headers", "caption": "KiCad 3D view of the Smartbreadboard PCB design."}, {"src": "/media/smartbreadboard-pcb-layout.jpg", "alt": "Smartbreadboard PCB layout showing component footprints, red and blue routed tracks and mounting holes", "caption": "PCB routing layout, showing the connections between the switching matrices, interface circuitry and headers."}, {"src": "/media/smartbreadboard-assembled-pcb.jpg", "alt": "Assembled green Smartbreadboard PCB with soldered integrated circuits and pin headers", "caption": "Assembled Smartbreadboard PCB with fitted components and headers."}, {"src": "/media/smartbreadboard-prototype.jpg", "alt": "Smartbreadboard development setup with interconnected breadboards, an Arduino board and jumper wires", "caption": "Breadboard development setup with controller, interface circuitry and jumper-wire connections."}],
+      "title": "Smartbreadboard Programmable PCB",
+      "description": "Designed a software-configurable breadboard with two MT8816 switch matrices, 256 programmable crosspoints, a custom KiCad PCB and Arduino control firmware.",
+      "longDescription": "I designed a programmable breadboard with 256 programmable crosspoints and developed Arduino firmware to control the connections. I tested addressing and control signals using logic analyser captures and schematic checks.\n\nObjective: Reduce manual rewiring during electronics prototyping by allowing circuit connections to be selected and changed in software.\n\nMy role: PCB design, embedded firmware and signal verification. Individual research project.\n\nMy contribution: Designed a custom PCB in KiCad. Integrated two MT8816 switch matrices with an I2C GPIO expander. Developed Arduino firmware for connection control. Checked addressing and control signals using a logic analyser and schematic review.\n\nProgrammable connections: Two MT8816 switch matrices form the basis of the circuit-routing design, providing a total of 256 programmable crosspoints.\n\nFirmware and interfaces: Arduino firmware controls circuit connections through a design incorporating an I2C GPIO expander.\n\nVerification: Logic analyser captures and schematic checks were used to test addressing and control signals. This provides evidence about the control interface without implying comprehensive electrical characterisation.\n\nScope: Testing reported here covers addressing and control signals. Switch resistance, signal bandwidth, current limits and end-to-end circuit performance are not characterised on this page.",
+      "technologies": [
+        "KiCad",
+        "Arduino",
+        "I2C",
+        "MT8816",
+        "Logic analyser"
+      ],
+      "github": "https://github.com/tarasfl/SmartBreadboard-",
+      "date": "January – August 2026"
+    },
+    "ball-levitation": {
+      "images": [{"src": "/media/ball-levitation-demo-poster.jpg", "alt": "Still from the ball-levitation demonstration showing a yellow ball in the vertical apparatus", "caption": "Still from the levitation demonstration, with the ball visible in the vertical apparatus."}, {"type": "video", "src": "/media/ball-levitation-demo.mp4", "poster": "/media/ball-levitation-demo-poster.jpg", "alt": "Ball-levitation apparatus and control software demonstration", "caption": "Short silent demonstration of the levitation apparatus and control software. The supplied circular framing is preserved."}, {"src": "/media/ball-assembly-cad.png", "alt": "CAD assembly of the vertical ball-levitation tube, fan base and upper sensor mount", "caption": "CAD assembly of the ball-levitation apparatus, from our team project report. The source figure is available only at this resolution."}, {"src": "/media/ball-mechanical-iterations.png", "alt": "CAD design iterations of the fan nozzle, airflow mesh and supporting base", "caption": "Mechanical design iterations from our team report: nozzle and airflow components above, supporting base below."}, {"src": "/media/ball-system-connections.png", "alt": "System connection diagram linking a Siemens PLC, Arduino, heartbeat relay, fan and two ultrasonic sensors", "caption": "Team report connection diagram: Arduino–PLC communication over Modbus TCP, fan PWM control and the heartbeat relay."}, {"src": "/media/ball-hmi-screen.png", "alt": "HMI design screen with ball height, high and low setpoints, stop button and heartbeat indicator", "caption": "HMI main-screen design from the team report, showing the height display, setpoint controls and heartbeat indicator."}],
+      "title": "Ball Levitation System",
+      "description": "Integrated Arduino sensing with a Siemens PLC over Modbus TCP and tuned PID control in a team-built fan levitation system, maintaining ball height within ±3 mm with a 10-second settling time.",
+      "longDescription": "As part of the team, I integrated Arduino proximity sensing with a Siemens PLC, tuned PID control and filtered measurements. The system maintained ball height within ±3 mm of the target with a settling time of 10 seconds.\n\nObjective: Maintain the height of a levitated ball using feedback control of a fan-driven airflow system, bringing sensing, industrial control and mechanical components together.\n\nMy role: Sensor integration, PID tuning and mechanical parts. SETU · University group project.\n\nMy contribution: Integrated Arduino proximity sensing with a Siemens PLC over Modbus TCP. Tuned PID control and filtered sensor measurements. Designed and 3D-printed airflow components and sensor mounts. Supported team assembly and testing.\n\nSensing and communication: Arduino proximity sensing was integrated with a Siemens PLC through Modbus TCP, linking the measurement system to industrial control hardware.\n\nFeedback control: PID tuning and measurement filtering supported closed-loop height control. The reported performance was ±3 mm around the target and a settling time of 10 seconds.\n\nMechanical integration: I designed and 3D-printed airflow components and sensor mounts to support the team’s assembly and testing of the levitation system.\n\nScope: These values describe the reported team test. Setpoint, disturbance conditions, sampling rate and the settling-time criterion should accompany any future response plot. Performance outside those test conditions is not established here.",
+      "technologies": [
+        "Arduino",
+        "Siemens PLC",
+        "PID",
+        "Modbus TCP",
+        "3D printing"
+      ],
+      "date": "September – December 2025"
+    }
   };
-}
-
-export function getStaticPaths() {
-  return Object.keys(allProjects).map((id) => ({
+  
+  const projects = Object.keys(allProjects);
+  return projects.map((id) => ({
     params: { id },
+    props: { project: allProjects[id] },
   }));
 }
 
-const { id } = Astro.props.params;
-const project = allProjects[id];
-
-if (!project) {
-  return new Response('Project not found', { status: 404 });
+interface Props {
+  project: {
+    title: string;
+    description: string;
+    longDescription: string;
+    technologies: string[];
+    link?: string;
+    github?: string;
+    date?: string;
+    images?: { src: string; alt: string; caption?: string; type?: "image" | "video"; poster?: string }[];
+  };
 }
+
+const { project } = Astro.props as Props;
 ---
 
 <Layout title={project.title}>
@@ -64,7 +115,7 @@ if (!project) {
       {project.date && <span class="date">{project.date}</span>}
     </p>
 
-    {project.image && <img src={project.image} alt={project.title} class="project-image" />}
+    {project.images && <ProjectGallery title={project.title} images={project.images} />}
 
     <div class="content">
       {project.longDescription.split('\n\n').map((para) => (
@@ -132,13 +183,6 @@ if (!project) {
   .date {
     display: inline-block;
     font-style: italic;
-  }
-
-  .project-image {
-    width: 100%;
-    max-width: 600px;
-    border: 1px solid #000;
-    margin: 2rem 0;
   }
 
   .content {

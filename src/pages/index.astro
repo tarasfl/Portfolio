@@ -11,57 +11,141 @@ import Footer from '../components/Footer.astro';
 
 // Your information - edit this section
 const portfolioData = {
-  name: 'Your Name',
-  title: 'Research Title',
-  description: 'Brief description of yourself, your background, and research interests. Add a professional photo in the photo field below.',
-  photo: '', // Add path to your photo here, e.g., '/profile.jpg'
+  "name": "Taras Fliorko",
+  "title": "Final-year Robotics Student | Dynamics, Control and Underactuated Systems",
+  "description": "I’m a final-year Robotics and Automated Systems student at South East Technological University in Carlow, Ireland. My work brings together mathematical modelling, nonlinear simulation, mechanical design and embedded control. I’m interested in how physical models inform the design and control of robotic systems, particularly underactuated systems. My current final-year project investigates controlled tipping and balance using a single gimbaled reaction wheel. I’m preparing for Master’s study in robotics and control, building on projects in rover manipulation, vision-based navigation and programmable electronics. Contact: tfliorko@gmail.com.",
+  "photo": "/media/taras-portrait.jpg"
 };
 
 const projects = [
   {
-    id: 'project-1',
-    title: 'Project Title',
-    description: 'Brief description of your project.',
-    github: 'https://github.com/yourusername/project',
+    "id": "gimbaled-reaction-cube",
+    "image": "/media/cube-simulation-example.jpg",
+    "title": "Gimbaled Reaction Wheel Cube",
+    "description": "Simulation and optimisation software for defining the technical specification of a gimbaled reaction wheel cube. Evaluated 19,088 simulated cases across 157 flywheel geometries and developed a weighted design-ranking algorithm.",
+    "github": "https://github.com/tarasfl/Gimbaled-Reaction-Cube"
   },
+  {
+    "id": "gnss-denied-drone",
+    "image": "/media/drone-hardware.jpg",
+    "title": "Drone Navigation without GNSS",
+    "description": "Co-developed stereo-vision navigation using optical flow, least squares estimation and Kalman filtering. Validated navigation on real data and contributed to drone integration with a team that reached the EUDIS Defence Hackathon Ireland finals.",
+    "github": "https://github.com/colaider/droneResearch"
+  },
+  {
+    "id": "mars-rover-manipulator",
+    "image": "/media/rover-arm-cad.jpg",
+    "title": "Mars Rover Manipulator",
+    "description": "Designed components for a lightweight six-axis rover arm, evaluated structural behaviour through stress simulation, and developed Python control logic for the SETU European Rover Challenge project."
+  },
+  {
+    "id": "smartbreadboard",
+    "image": "/media/smartbreadboard-pcb-render.jpg",
+    "title": "Smartbreadboard Programmable PCB",
+    "description": "Designed a software-configurable breadboard with two MT8816 switch matrices, 256 programmable crosspoints, a custom KiCad PCB and Arduino control firmware.",
+    "github": "https://github.com/tarasfl/SmartBreadboard-"
+  },
+  {
+    "id": "ball-levitation",
+    "image": "/media/ball-levitation-demo-poster.jpg",
+    "title": "Ball Levitation System",
+    "description": "Integrated Arduino sensing with a Siemens PLC over Modbus TCP and tuned PID control in a team-built fan levitation system, maintaining ball height within ±3 mm with a 10-second settling time."
+  }
 ];
 
 const notes = [
   {
-    title: 'Article Title',
-    excerpt: 'Brief excerpt about what this article covers.',
-    date: 'Date',
-    link: '#',
+    "title": "Weighted selection of a simulated design",
+    "excerpt": "The reaction cube optimiser ranks successful simulation runs using weighted min–max normalisation. The current flywheel routine balances component mass, tipping time and target RPM, then refines candidate parameters around the best tested design. The result depends on the model, tested candidates and selected weights; it is not a claim of a global optimum.",
+    "link": "https://github.com/tarasfl/Gimbaled-Reaction-Cube"
   },
+  {
+    "title": "From programmable crosspoints to circuit routing",
+    "excerpt": "Smartbreadboard separates low-level switch control from the longer-term goal of routing complete circuit connections. The current work covers PCB design, Arduino firmware and addressing/control-signal checks. Automatic routing and full electrical characterisation remain development work.",
+    "link": "https://github.com/tarasfl/SmartBreadboard-"
+  }
 ];
 
 const experiences = [
   {
-    title: 'Position Title',
-    organization: 'Company Name',
-    period: 'Month Year - Month Year',
-    description: 'Brief description of your role.',
+    "title": "Engineering Intern",
+    "organization": "Carlow Toolmaking Services",
+    "period": "January – May 2026",
+    "description": "Produced and updated tool CAD in Solid Edge, maintaining drawing versions and manufacturing documentation for machining. Supported wire EDM setup and CNC milling within the workshop team, applying guidance from toolmaking and machining specialists."
   },
+  {
+    "title": "Software Development",
+    "organization": "Insoftex",
+    "period": "February – August 2024",
+    "description": "Developed a solar monitoring website with a software team using Svelte and JavaScript to collect and visualise energy output and system performance. Retrieved location and address information from satellite feeds for the monitoring project."
+  },
+  {
+    "title": "Chess Club Co-founder and Chairperson",
+    "organization": "South East Technological University",
+    "period": "September 2024 – present",
+    "description": "Co-founded and chaired a chess club with 25+ active members, built a team, and organised weekly sessions, tournaments and university events."
+  },
+  {
+    "title": "Astronomy Club Co-founder",
+    "organization": "South East Technological University",
+    "period": "",
+    "description": "Co-founded the university Astronomy Club."
+  }
 ];
 
 const education = [
   {
-    degree: 'Degree Name',
-    field: 'Field of Study',
-    school: 'University Name',
-    year: 'Year',
+    "degree": "BEng (Hons)",
+    "field": "Robotics and Automated Systems",
+    "school": "South East Technological University, Carlow, Ireland",
+    "year": "2023 – May 2027 (expected)"
   },
+  {
+    "degree": "Studies",
+    "field": "Computer Science and Internet of Things",
+    "school": "Lviv Polytechnic National University, Ukraine",
+    "year": "September 2021 – May 2023"
+  }
 ];
 
 const skills = [
   {
-    category: 'Programming',
-    items: ['Python', 'JavaScript', 'C++'],
+    "category": "Programming & analysis",
+    "items": [
+      "Python",
+      "C/C++",
+      "MATLAB",
+      "Simulink",
+      "JavaScript/TypeScript"
+    ]
   },
+  {
+    "category": "Control & embedded systems",
+    "items": [
+      "Siemens TIA Portal",
+      "S7-1500 PLC",
+      "PID",
+      "Arduino",
+      "Modbus TCP",
+      "I2C"
+    ]
+  },
+  {
+    "category": "Design & electronics",
+    "items": [
+      "SolidWorks",
+      "Fusion 360",
+      "Solid Edge",
+      "3D printing",
+      "KiCad",
+      "Proteus",
+      "Logic analyser"
+    ]
+  }
 ];
 ---
 
-<Layout title="Academic Portfolio">
+<Layout title="Taras Fliorko | Academic Engineering Portfolio">
   <Header />
   
   <Hero
@@ -80,9 +164,9 @@ const skills = [
   <CV
     education={education}
     skills={skills}
-    cvLink="#cv"
-    githubLink="https://github.com/yourusername"
-    linkedinLink="https://linkedin.com/in/yourusername"
+    cvLink="/Taras_Fliorko_Academic.pdf"
+    githubLink="https://github.com/tarasfl"
+    linkedinLink="https://www.linkedin.com/in/taras-fliorko/"
   />
 
   <Footer />

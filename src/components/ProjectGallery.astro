@@ -1,0 +1,129 @@
+---
+interface Props {
+  title: string;
+  images: { src: string; alt: string; caption?: string; type?: "image" | "video"; poster?: string }[];
+}
+const { title, images } = Astro.props;
+---
+
+<project-gallery role="region" aria-roledescription="carousel" aria-label={`${title} media`} tabindex="0">
+  <div class="gallery-viewport">
+    {images.map((image, index) => (
+      <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${images.length}`}>
+        {image.type === 'video' ? (
+          <video controls playsinline preload="none" poster={image.poster} aria-label={image.alt}>
+            <source src={image.src} type="video/mp4" />
+            <a href={image.src}>Download this video</a>
+          </video>
+        ) : (
+          <a href={image.src} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size image: ${image.alt}`}>
+            <img src={image.src} alt={image.alt} width="1200" height="800" loading={index === 0 ? 'eager' : 'lazy'} draggable="false" />
+          </a>
+        )}
+        {image.caption && <figcaption>{image.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+  {images.length > 1 && (
+    <div class="gallery-controls" hidden>
+      <button type="button" data-direction="previous" aria-label="Previous slide">← Previous</button>
+      <span class="gallery-counter" aria-live="polite" aria-atomic="true">1 / {images.length}</span>
+      <button type="button" data-direction="next" aria-label="Next slide">Next →</button>
+    </div>
+  )}
+</project-gallery>
+
+<script>
+  class ProjectGalleryElement extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready) return;
+      this.dataset.ready = 'true';
+      const slides = Array.from(this.querySelectorAll<HTMLElement>('.gallery-slide'));
+      const controls = this.querySelector<HTMLElement>('.gallery-controls');
+      const counter = this.querySelector<HTMLElement>('.gallery-counter');
+      if (slides.length < 2 || !controls || !counter) return;
+      let current = 0;
+      const show = (index: number) => {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.hidden = i !== current;
+          if (slide.hidden) slide.querySelectorAll('video').forEach(video => video.pause());
+        });
+        counter.textContent = `${current + 1} / ${slides.length}`;
+      };
+      controls.hidden = false;
+      controls.querySelector('[data-direction="previous"]')?.addEventListener('click', () => show(current - 1));
+      controls.querySelector('[data-direction="next"]')?.addEventListener('click', () => show(current + 1));
+      this.addEventListener('keydown', (event) => {
+        if (event.target instanceof Element && event.target.closest('video')) return;
+        if (event.key === 'ArrowLeft') { event.preventDefault(); show(current - 1); }
+        if (event.key === 'ArrowRight') { event.preventDefault(); show(current + 1); }
+        if (event.key === 'Home') { event.preventDefault(); show(0); }
+        if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+      });
+      const viewport = this.querySelector<HTMLElement>('.gallery-viewport');
+      let start: { x: number; y: number; id: number } | null = null;
+      viewport?.addEventListener('pointerdown', (event) => {
+        if (event.target instanceof Element && event.target.closest('video')) return;
+        if (event.pointerType === 'mouse' || !event.isPrimary) return;
+        start = { x: event.clientX, y: event.clientY, id: event.pointerId };
+        viewport.setPointerCapture(event.pointerId);
+      });
+      viewport?.addEventListener('pointerup', (event) => {
+        if (!start || start.id !== event.pointerId) return;
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+        start = null;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(current + (dx < 0 ? 1 : -1));
+      });
+      viewport?.addEventListener('pointercancel', () => { start = null; });
+      show(0);
+    }
+  }
+  if (!customElements.get('project-gallery')) customElements.define('project-gallery', ProjectGalleryElement);
+</script>
+
+<style>
+  project-gallery {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem 0;
+  }
+  .gallery-viewport { touch-action: pan-y; }
+  .gallery-slide { margin: 0 0 1rem; }
+  .gallery-slide img,
+  .gallery-slide video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    border: 1px solid #000;
+    background: #f3f3f3;
+  }
+  .gallery-slide video { touch-action: auto; }
+  figcaption { margin-top: .5rem; color: #666; font-size: .9rem; }
+  .gallery-controls { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  button {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: .5rem .75rem;
+    min-height: 44px;
+    font: inherit;
+    cursor: pointer;
+  }
+  button:hover { background: #f3f3f3; }
+  button:focus-visible, project-gallery:focus-visible { outline: 2px solid #000; outline-offset: 4px; }
+  .gallery-counter { white-space: nowrap; font-size: .9rem; }
+  [hidden] { display: none !important; }
+  @media (max-width: 400px) {
+    button { padding: .5rem; font-size: .85rem; }
+  }
+  @media print {
+    .gallery-controls { display: none; }
+    .gallery-slide[hidden] { display: block !important; }
+    .gallery-slide { break-inside: avoid; }
+  }
+</style>

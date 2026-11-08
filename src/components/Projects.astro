@@ -6,6 +6,7 @@ interface Project {
   description: string;
   link?: string;
   github?: string;
+  image?: string;
 }
 
 interface Props {
@@ -25,6 +26,11 @@ const { projects = [] } = Astro.props;
           <h3>
             <a href={`/projects/${project.id}`}>{project.title}</a>
           </h3>
+          {project.image && (
+            <a href={`/projects/${project.id}`} aria-label={`View ${project.title} photos`}>
+              <img src={project.image} alt={project.image.endsWith("-placeholder.svg") ? `${project.title} photo placeholder` : project.title} class="project-photo" width="1200" height="800" loading="lazy" />
+            </a>
+          )}
           <p>{project.description}</p>
           <div class="project-links">
             <a href={`/projects/${project.id}`}>View Project</a>
@@ -74,6 +80,15 @@ const { projects = [] } = Astro.props;
 
   .project-item p {
     margin-bottom: 0.75rem;
+  }
+
+  .project-photo {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border: 1px solid #000;
+    margin: 1rem 0;
   }
 
   .project-links {
