@@ -1,0 +1,97 @@
+---
+// Research section component
+import ProjectCard from '../components/ProjectCard.astro';
+
+interface Project {
+  title: string;
+  description: string;
+  tags?: string[];
+  link?: string;
+  github?: string;
+}
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects = [] } = Astro.props;
+---
+
+<section class="research" id="research">
+  <div class="container">
+    <h2>Research & Projects</h2>
+    <p class="section-intro">
+      Technical projects with mathematical models, simulations, experiments, and results.
+    </p>
+
+    {projects.length > 0 ? (
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            tags={project.tags}
+            link={project.link}
+            github={project.github}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p>Projects coming soon...</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .research {
+    background-color: #f8f9fa;
+    padding: calc(var(--spacing-unit) * 6) 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .section-intro {
+    text-align: center;
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

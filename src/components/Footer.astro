@@ -1,0 +1,70 @@
+---
+// Footer component
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2024 Academic Portfolio. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#notes">Notes</a>
+      <a href="#experience">Experience</a>
+      <a href="#cv">CV</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer-content p {
+    margin: 0;
+    color: #999;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: #ffffff;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-links {
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+</style>
