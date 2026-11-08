@@ -1,5 +1,5 @@
 ---
-// Main index page
+// Main index page - plain academic style
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
@@ -10,15 +10,13 @@ import Experience from '../components/Experience.astro';
 import CV from '../components/CV.astro';
 import Footer from '../components/Footer.astro';
 
-// Sample data - customize with your own information
+// Your information - edit this section
 const portfolioData = {
   name: 'Your Name',
-  title: 'Research & Engineering',
-  subtitle: 'Academic researcher and engineer focused on innovative solutions',
+  title: 'Research Title',
   university: 'Your University',
-  academicFocus: 'Your research focus area (e.g., Machine Learning, Robotics, etc.)',
-  researchStatement:
-    'Your concise research statement here. Describe your research interests and what drives your work.',
+  academicFocus: 'Your Research Focus',
+  researchStatement: 'Brief statement about your research interests and what drives your work.',
   cvLink: '#cv',
   githubLink: 'https://github.com/yourusername',
   linkedinLink: 'https://linkedin.com/in/yourusername',
@@ -27,35 +25,28 @@ const portfolioData = {
 const projects = [
   {
     title: 'Project Title',
-    description:
-      'Brief description of your project including the problem it solves, technologies used, and key results.',
-    tags: ['Tag1', 'Tag2', 'Tag3'],
+    description: 'Brief description of your project including the problem and your contributions.',
     link: '#',
     github: 'https://github.com/yourusername/project',
   },
-  // Add more projects here
 ];
 
-const technicalNotes = [
+const notes = [
   {
-    title: 'Technical Note Title',
-    excerpt: 'A brief excerpt or summary of the technical note.',
-    date: 'Nov 2024',
-    readTime: '5 min read',
+    title: 'Article Title',
+    excerpt: 'Brief excerpt about what this article covers.',
+    date: 'Date',
     link: '#',
   },
-  // Add more notes here
 ];
 
 const experiences = [
   {
     title: 'Position Title',
-    organization: 'Company/Organization Name',
+    organization: 'Company Name',
     period: 'Month Year - Month Year',
-    description: 'Description of your role and responsibilities.',
-    highlights: ['Achievement 1', 'Achievement 2', 'Achievement 3'],
+    description: 'Brief description of your role.',
   },
-  // Add more experiences here
 ];
 
 const education = [
@@ -63,48 +54,22 @@ const education = [
     degree: 'Degree Name',
     field: 'Field of Study',
     school: 'University Name',
-    year: '20XX - 20XX',
+    year: 'Year',
   },
-  // Add more education here
 ];
 
 const skills = [
   {
     category: 'Programming',
-    items: ['Python', 'JavaScript', 'TypeScript', 'C++'],
+    items: ['Python', 'JavaScript', 'C++'],
   },
-  {
-    category: 'Tools & Frameworks',
-    items: ['React', 'Astro', 'TensorFlow', 'PyTorch'],
-  },
-  // Add more skill categories here
 ];
-
-const contact = {
-  email: 'your.email@example.com',
-  phone: '+1 (123) 456-7890',
-  location: 'City, State',
-};
 ---
 
 <Layout title="Academic Portfolio">
   <Header />
-
-  <Hero
-    name={portfolioData.name}
-    title={portfolioData.title}
-    subtitle={portfolioData.subtitle}
-  >
-    <a href={portfolioData.githubLink} target="_blank" class="cta-button">
-      GitHub
-    </a>
-    <a href={portfolioData.linkedinLink} target="_blank" class="cta-button secondary">
-      LinkedIn
-    </a>
-  </Hero>
-
+  <Hero name={portfolioData.name} title={portfolioData.title} />
   <About
-    name={portfolioData.name}
     university={portfolioData.university}
     academicFocus={portfolioData.academicFocus}
     researchStatement={portfolioData.researchStatement}
@@ -112,42 +77,9 @@ const contact = {
     githubLink={portfolioData.githubLink}
     linkedinLink={portfolioData.linkedinLink}
   />
-
   <Research projects={projects} />
-
-  <TechnicalNotes notes={technicalNotes} />
-
+  <TechnicalNotes notes={notes} />
   <Experience experiences={experiences} />
-
-  <CV education={education} skills={skills} contact={contact} publications={[]} />
-
+  <CV education={education} skills={skills} />
   <Footer />
 </Layout>
-
-<style>
-  .cta-button {
-    display: inline-block;
-    padding: 0.875rem 2rem;
-    background-color: var(--color-accent);
-    color: white;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: all 0.3s;
-    border: 2px solid var(--color-accent);
-  }
-
-  .cta-button:hover {
-    background-color: transparent;
-    color: var(--color-accent);
-  }
-
-  .cta-button.secondary {
-    background-color: transparent;
-    color: var(--color-accent);
-  }
-
-  .cta-button.secondary:hover {
-    background-color: var(--color-accent);
-    color: white;
-  }
-</style>

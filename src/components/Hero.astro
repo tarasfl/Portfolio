@@ -1,84 +1,32 @@
 ---
-// Hero/Landing section component
+// Simple hero/title section
 interface Props {
   name: string;
   title: string;
-  subtitle: string;
 }
 
-const { name, title, subtitle } = Astro.props;
+const { name, title } = Astro.props;
 ---
 
 <section class="hero" id="home">
-  <div class="hero-container">
-    <h1 class="hero-title">{name}</h1>
-    <h2 class="hero-subtitle">{title}</h2>
-    <p class="hero-description">{subtitle}</p>
-    <div class="hero-links">
-      <slot />
-    </div>
-  </div>
+  <h1>{name}</h1>
+  <p class="tagline">{title}</p>
 </section>
 
 <style>
   .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 2rem;
-  }
-
-  .hero-container {
-    max-width: 800px;
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--color-text);
-  }
-
-  .hero-subtitle {
-    font-size: 1.75rem;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-
-  .hero-description {
-    font-size: 1.1rem;
-    color: var(--color-secondary);
     margin-bottom: 2rem;
-    line-height: 1.8;
   }
 
-  .hero-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin: 0 0 0.5rem 0;
   }
 
-  @media (max-width: 768px) {
-    .hero {
-      min-height: 80vh;
-      padding: 1rem;
-    }
-
-    .hero-title {
-      font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-    }
-
-    .hero-description {
-      font-size: 1rem;
-    }
+  .tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin: 0;
   }
 </style>

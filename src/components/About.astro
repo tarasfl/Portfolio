@@ -1,7 +1,6 @@
 ---
-// About section component
+// Simple about section
 interface Props {
-  name: string;
   university: string;
   academicFocus: string;
   researchStatement: string;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const {
-  name,
   university,
   academicFocus,
   researchStatement,
@@ -22,152 +20,49 @@ const {
 ---
 
 <section class="about" id="about">
-  <div class="container">
-    <h2>About</h2>
-    <div class="about-grid">
-      <div class="about-content">
-        <h3>{name}</h3>
-        <p class="university">
-          <strong>{university}</strong>
-        </p>
-        <p class="academic-focus">
-          <strong>Focus:</strong> {academicFocus}
-        </p>
-        <div class="research-statement">
-          <h4>Research Statement</h4>
-          <p>{researchStatement}</p>
-        </div>
-      </div>
+  <h2>About</h2>
+  
+  <p><strong>University:</strong> {university}</p>
+  <p><strong>Research Focus:</strong> {academicFocus}</p>
+  
+  <h3>Research Statement</h3>
+  <p>{researchStatement}</p>
 
-      <div class="about-links">
-        <h3>Connect</h3>
-        <div class="links-list">
-          {
-            cvLink && (
-              <a href={cvLink} target="_blank" rel="noopener noreferrer" class="link-btn">
-                📄 CV
-              </a>
-            )
-          }
-          {
-            githubLink && (
-              <a href={githubLink} target="_blank" rel="noopener noreferrer" class="link-btn">
-                💻 GitHub
-              </a>
-            )
-          }
-          {
-            linkedinLink && (
-              <a href={linkedinLink} target="_blank" rel="noopener noreferrer" class="link-btn">
-                🔗 LinkedIn
-              </a>
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3>Links</h3>
+  <ul>
+    {cvLink && <li><a href={cvLink}>CV</a></li>}
+    {githubLink && <li><a href={githubLink} target="_blank">GitHub</a></li>}
+    {linkedinLink && <li><a href={linkedinLink} target="_blank">LinkedIn</a></li>}
+  </ul>
 </section>
 
 <style>
   .about {
-    background-color: var(--color-bg);
-    padding: calc(var(--spacing-unit) * 6) 0;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    margin-bottom: 2rem;
   }
 
   h2 {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    text-align: center;
+    border-top: 1px solid #000;
+    padding-top: 1rem;
+    margin-top: 2rem;
   }
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
+  h3 {
+    margin-top: 1.5rem;
   }
 
-  .about-content h3 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
   }
 
-  .university {
-    color: var(--color-accent);
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+  li {
+    margin-bottom: 0.25rem;
   }
 
-  .academic-focus {
-    color: var(--color-secondary);
-    margin-bottom: 2rem;
-    font-size: 1rem;
-  }
-
-  .research-statement {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--color-accent);
-  }
-
-  .research-statement h4 {
-    margin-top: 0;
-  }
-
-  .about-links h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .links-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .link-btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--color-accent);
-    color: white;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: all 0.3s;
-    text-align: center;
-  }
-
-  .link-btn:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
-  }
-
-  @media (max-width: 768px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    h2 {
-      font-size: 2rem;
-    }
-
-    .links-list {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .link-btn {
-      flex: 1;
-      min-width: 120px;
-    }
+  a {
+    color: #000;
+    text-decoration: underline;
   }
 </style>

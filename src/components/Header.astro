@@ -1,118 +1,52 @@
 ---
-// Header component with smooth scroll navigation
-import type { AstroComponentFactory } from 'astro';
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-const navItems: NavItem[] = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Research & Projects', href: '#research' },
-  { label: 'Technical Notes', href: '#notes' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'CV', href: '#cv' },
-];
+// Simple header with basic navigation
 ---
 
 <header class="header">
   <nav class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="logo">Portfolio</a>
-      <ul class="nav-links">
-        {
-          navItems.map((item) => (
-            <li>
-              <a href={item.href} class="nav-link">
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#cv">CV</a></li>
+    </ul>
   </nav>
 </header>
 
 <style>
   .header {
-    position: sticky;
-    top: 0;
-    background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid #000;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
   }
 
   .navbar {
-    padding: 1rem 0;
-  }
-
-  .nav-container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    transition: opacity 0.2s;
-  }
-
-  .logo:hover {
-    opacity: 0.8;
   }
 
   .nav-links {
-    display: flex;
     list-style: none;
+    display: flex;
     gap: 2rem;
-    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
   }
 
-  .nav-link {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-text);
-    transition: color 0.2s;
-    position: relative;
+  .nav-links a {
+    text-decoration: none;
+    color: #000;
   }
 
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-accent);
-    transition: width 0.3s;
+  .nav-links a:hover {
+    text-decoration: underline;
   }
 
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  .nav-link:hover {
-    color: var(--color-accent);
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .nav-links {
       gap: 1rem;
-      font-size: 0.85rem;
-    }
-
-    .nav-container {
-      padding: 0 1rem;
+      font-size: 0.9rem;
     }
   }
 </style>
