@@ -3,8 +3,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
 import Research from '../components/Research.astro';
+import Projects from '../components/Projects.astro';
 import TechnicalNotes from '../components/TechnicalNotes.astro';
 import Experience from '../components/Experience.astro';
 import CV from '../components/CV.astro';
@@ -14,19 +14,21 @@ import Footer from '../components/Footer.astro';
 const portfolioData = {
   name: 'Your Name',
   title: 'Research Title',
-  university: 'Your University',
-  academicFocus: 'Your Research Focus',
-  researchStatement: 'Brief statement about your research interests and what drives your work.',
-  cvLink: '#cv',
-  githubLink: 'https://github.com/yourusername',
-  linkedinLink: 'https://linkedin.com/in/yourusername',
+  description: 'Brief description of yourself, your background, and research interests. Add a professional photo in the photo field below.',
+  photo: '', // Add path to your photo here, e.g., '/profile.jpg'
+};
+
+const activityData = {
+  title: 'Experience & Activity',
+  description: 'Description of your main research area, projects, and contributions. Include your academic focus and key achievements.',
+  photo: '', // Add path to activity/research photo here
 };
 
 const projects = [
   {
+    id: 'project-1',
     title: 'Project Title',
-    description: 'Brief description of your project including the problem and your contributions.',
-    link: '#',
+    description: 'Brief description of your project.',
     github: 'https://github.com/yourusername/project',
   },
 ];
@@ -68,18 +70,33 @@ const skills = [
 
 <Layout title="Academic Portfolio">
   <Header />
-  <Hero name={portfolioData.name} title={portfolioData.title} />
-  <About
-    university={portfolioData.university}
-    academicFocus={portfolioData.academicFocus}
-    researchStatement={portfolioData.researchStatement}
-    cvLink={portfolioData.cvLink}
-    githubLink={portfolioData.githubLink}
-    linkedinLink={portfolioData.linkedinLink}
+  
+  <Hero
+    name={portfolioData.name}
+    title={portfolioData.title}
+    description={portfolioData.description}
+    photo={portfolioData.photo}
   />
-  <Research projects={projects} />
+
+  <Research
+    title={activityData.title}
+    description={activityData.description}
+    photo={activityData.photo}
+  />
+
+  <Projects projects={projects} />
+
   <TechnicalNotes notes={notes} />
+
   <Experience experiences={experiences} />
-  <CV education={education} skills={skills} />
+
+  <CV
+    education={education}
+    skills={skills}
+    cvLink="#cv"
+    githubLink="https://github.com/yourusername"
+    linkedinLink="https://linkedin.com/in/yourusername"
+  />
+
   <Footer />
 </Layout>

@@ -1,0 +1,199 @@
+---
+// Dynamic project detail pages
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Define all your projects here
+const allProjects: Record<string, {
+  title: string;
+  description: string;
+  longDescription: string;
+  technologies: string[];
+  link?: string;
+  github?: string;
+  date?: string;
+  image?: string;
+}> = {
+  'project-1': {
+    title: 'Project Title',
+    description: 'Brief description',
+    longDescription: `
+      This is the detailed description of your project.
+      
+      You can include multiple paragraphs about what you built, why you built it, 
+      and what you learned from the experience.
+      
+      Include technical details, challenges you overcame, and results.
+    `,
+    technologies: ['Technology 1', 'Technology 2'],
+    link: 'https://project-link.com',
+    github: 'https://github.com/yourusername/project',
+    date: '2024',
+  },
+};
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export function getStaticPaths() {
+  return Object.keys(allProjects).map((id) => ({
+    params: { id },
+  }));
+}
+
+const { id } = Astro.props.params;
+const project = allProjects[id];
+
+if (!project) {
+  return new Response('Project not found', { status: 404 });
+}
+---
+
+<Layout title={project.title}>
+  <Header />
+
+  <article class="project-detail">
+    <a href="/" class="back-link">← Back to Home</a>
+
+    <h1>{project.title}</h1>
+    <p class="meta">
+      {project.date && <span class="date">{project.date}</span>}
+    </p>
+
+    {project.image && <img src={project.image} alt={project.title} class="project-image" />}
+
+    <div class="content">
+      {project.longDescription.split('\n\n').map((para) => (
+        <p>{para.trim()}</p>
+      ))}
+    </div>
+
+    {project.technologies.length > 0 && (
+      <div class="technologies">
+        <h3>Technologies</h3>
+        <ul>
+          {project.technologies.map((tech) => (
+            <li>{tech}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="project-links">
+      {project.link && (
+        <a href={project.link} target="_blank" rel="noopener noreferrer">
+          View Project
+        </a>
+      )}
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noopener noreferrer">
+          View on GitHub
+        </a>
+      )}
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<style>
+  .project-detail {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .back-link:hover {
+    color: #333;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+  }
+
+  .meta {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .date {
+    display: inline-block;
+    font-style: italic;
+  }
+
+  .project-image {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #000;
+    margin: 2rem 0;
+  }
+
+  .content {
+    margin: 2rem 0;
+    line-height: 1.6;
+  }
+
+  .content p {
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+
+  .technologies {
+    margin: 2rem 0;
+  }
+
+  .technologies h3 {
+    margin-top: 0;
+  }
+
+  .technologies ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .technologies li {
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .technologies li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .project-links a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .project-links {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

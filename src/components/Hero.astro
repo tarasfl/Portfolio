@@ -1,16 +1,29 @@
 ---
-// Simple hero/title section
+// Hero section with photo and description
 interface Props {
   name: string;
   title: string;
+  description?: string;
+  photo?: string;
 }
 
-const { name, title } = Astro.props;
+const { name, title, description, photo } = Astro.props;
 ---
 
 <section class="hero" id="home">
-  <h1>{name}</h1>
-  <p class="tagline">{title}</p>
+  <div class="hero-content">
+    <h1>{name}</h1>
+    <p class="tagline">{title}</p>
+    
+    {description && (
+      <>
+        {photo && <img src={photo} alt={name} class="hero-photo" />}
+        <div class="description">
+          <p>{description}</p>
+        </div>
+      </>
+    )}
+  </div>
 </section>
 
 <style>
@@ -18,15 +31,36 @@ const { name, title } = Astro.props;
     margin-bottom: 2rem;
   }
 
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
   h1 {
     font-size: 2.5rem;
     font-weight: normal;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
   }
 
   .tagline {
     font-size: 1.1rem;
     font-style: italic;
     margin: 0;
+  }
+
+  .hero-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #000;
+  }
+
+  .description {
+    max-width: 600px;
+  }
+
+  .description p {
+    text-align: justify;
   }
 </style>

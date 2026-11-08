@@ -1,42 +1,27 @@
 ---
-// Simple research section
-interface Project {
+// Experience & Activity section with description and photo
+interface Props {
   title: string;
   description: string;
-  link?: string;
-  github?: string;
+  photo?: string;
 }
 
-interface Props {
-  projects: Project[];
-}
-
-const { projects = [] } = Astro.props;
+const { title, description, photo } = Astro.props;
 ---
 
-<section class="research" id="research">
-  <h2>Research & Projects</h2>
-
-  {projects.length > 0 ? (
-    <div class="projects-list">
-      {projects.map((project) => (
-        <div class="project-item">
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-          <div class="project-links">
-            {project.link && <a href={project.link}>Project</a>}
-            {project.github && <a href={project.github} target="_blank">GitHub</a>}
-          </div>
-        </div>
-      ))}
+<section class="activity" id="activity">
+  <h2>{title}</h2>
+  
+  <div class="activity-content">
+    {photo && <img src={photo} alt={title} class="activity-photo" />}
+    <div class="activity-text">
+      <p>{description}</p>
     </div>
-  ) : (
-    <p><em>Projects coming soon.</em></p>
-  )}
+  </div>
 </section>
 
 <style>
-  .research {
+  .activity {
     margin-bottom: 2rem;
   }
 
@@ -46,31 +31,32 @@ const { projects = [] } = Astro.props;
     margin-top: 2rem;
   }
 
-  .projects-list {
+  .activity-content {
     display: flex;
-    flex-direction: column;
     gap: 2rem;
+    margin-top: 1.5rem;
   }
 
-  .project-item {
-    margin-bottom: 1.5rem;
+  .activity-photo {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 1px solid #000;
+    flex-shrink: 0;
   }
 
-  .project-item h3 {
-    margin: 0 0 0.5rem 0;
+  .activity-text p {
+    text-align: justify;
   }
 
-  .project-item p {
-    margin-bottom: 0.75rem;
-  }
+  @media (max-width: 768px) {
+    .activity-content {
+      flex-direction: column;
+    }
 
-  .project-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .project-links a {
-    color: #000;
-    text-decoration: underline;
+    .activity-photo {
+      width: 100%;
+      height: auto;
+    }
   }
 </style>

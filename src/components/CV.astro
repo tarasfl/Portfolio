@@ -1,5 +1,5 @@
 ---
-// Simple CV section
+// Simple CV section with links
 interface Education {
   degree: string;
   field: string;
@@ -16,17 +16,30 @@ interface Props {
   education?: Education[];
   skills?: Skill[];
   publications?: string[];
+  cvLink?: string;
+  githubLink?: string;
+  linkedinLink?: string;
 }
 
 const {
   education = [],
   skills = [],
   publications = [],
+  cvLink,
+  githubLink,
+  linkedinLink,
 } = Astro.props;
 ---
 
 <section class="cv" id="cv">
   <h2>CV</h2>
+
+  <h3>Links</h3>
+  <ul class="links-list">
+    {cvLink && <li><a href={cvLink}>CV</a></li>}
+    {githubLink && <li><a href={githubLink} target="_blank">GitHub</a></li>}
+    {linkedinLink && <li><a href={linkedinLink} target="_blank">LinkedIn</a></li>}
+  </ul>
 
   {education.length > 0 && (
     <>
@@ -84,6 +97,22 @@ const {
 
   h3 {
     margin-top: 1.5rem;
+  }
+
+  .links-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .links-list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .links-list a {
+    color: #000;
+    text-decoration: underline;
   }
 
   .edu-list,
