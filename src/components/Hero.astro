@@ -11,56 +11,30 @@ const { name, title, description, photo } = Astro.props;
 ---
 
 <section class="hero" id="home">
-  <div class="hero-content">
+  <div class="hero-heading">
     <h1>{name}</h1>
     <p class="tagline">{title}</p>
-    
-    {description && (
-      <>
-        {photo && <img src={photo} alt={name} class="hero-photo" />}
-        <div class="description">
-          <p>{description}</p>
-        </div>
-      </>
-    )}
+  </div>
+  <div class="hero-content">
+    {photo && <aside class="portrait-column"><img src={photo} alt={name} class="hero-photo" width="235" height="313" /></aside>}
+    <div class="intro-column">
+      {description && <div class="description"><p>{description}</p></div>}
+    </div>
   </div>
 </section>
 
 <style>
-  .hero {
-    margin-bottom: 2rem;
-  }
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: normal;
-    margin: 0;
-  }
-
-  .tagline {
-    font-size: 1.1rem;
-    font-style: italic;
-    margin: 0;
-  }
-
-  .hero-photo {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border: 1px solid #000;
-  }
-
-  .description {
-    max-width: 600px;
-  }
-
-  .description p {
-    text-align: justify;
+  .hero { margin-bottom:2rem; }
+  .hero-heading { margin-bottom:2rem; }
+  .hero-content { display:grid; grid-template-columns:235px minmax(0,1fr); gap:2rem; align-items:start; }
+  .portrait-column,.intro-column { min-width:0; }
+  .hero-photo { display:block; width:100%; height:auto; object-fit:cover; }
+  h1 { margin:0 0 .75rem; }
+  .tagline { margin:0 0 1.5rem; }
+  .description { max-width:68ch; }
+  .description p { text-align:left; margin-top:0; }
+  @media(max-width:650px) {
+    .hero-content { grid-template-columns:1fr; }
+    .portrait-column { max-width:235px; }
   }
 </style>

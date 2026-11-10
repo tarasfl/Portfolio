@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<Layout title="Mathematical Modelling of a Gimbaled Reaction Wheel Cube">
+  <Header />
+  <article>
+    <a href="/#notes">← Technical Notes</a>
+    <h1>Mathematical Modelling of a Gimbaled Reaction Wheel Cube</h1>
+    <p>These notes develop a reduced nonlinear model for the planar tipping motion of a cube actuated by a single gimbaled flywheel. The formulation examines how geometry, mass distribution and internal actuation determine the coupled dynamics of the cube and gimbal, establishing a mathematical basis for numerical simulation, design optimisation and control investigation.</p>
+    <p>The derivation begins with the coordinate convention, component mass distribution and centre-of-mass location. Component inertias are assembled into effective rotational inertias for the two modelled coordinates, including the dependence of the cube-coordinate inertia on gimbal orientation. Lagrange’s method is then used to obtain the nonlinear equations of motion at prescribed flywheel spin speed. The resulting expressions identify the contributions of gravitational torque, gyroscopic coupling and orientation-dependent inertia, together with the additional term required when flywheel angular momentum varies during the manoeuvre.</p>
+    <p>The analytical formulation is connected to the computational implementation through a state-space representation, a flywheel spin-up model and a saturated gimbal tracking controller with compensation for the modelled coupling terms. A reduced energy identity provides a consistency check for the equations. Gravitational potential energy defines the unstable balance configuration and the energy barrier between supported faces, while a baseline numerical example illustrates the relationship between flywheel angular momentum, gimbal rate and the torque required to initiate tipping.</p>
+    <p>The analysis distinguishes initiation of tipping from completion of a face-to-face manoeuvre and considers the implications of the contact and actuator assumptions. The reduced model provides a framework for investigating the proposed mechanism, but internal mathematical consistency does not establish experimental predictive accuracy. Verification of component inertias, actuator characteristics and ground-contact behaviour remains necessary to refine the model and support its subsequent extension to three-dimensional motion.</p>
+    <p class="document-link"><a href="/documents/cube_2d_mathematical_model.pdf" target="_blank" rel="noopener noreferrer">Read the full derivation: Planar Dynamics of a Cube Actuated by a Gimbaled Flywheel (PDF)</a></p>
+  </article>
+  <Footer />
+</Layout>
+<style>article{max-width:78ch;margin:0 auto}p{line-height:1.85;margin-bottom:1.3rem}h1{margin-bottom:2rem}.document-link{margin-top:2rem}</style>

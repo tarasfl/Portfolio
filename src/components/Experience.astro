@@ -23,7 +23,7 @@ const { experiences = [] } = Astro.props;
         <div class="exp-item">
           <h3>{exp.title}</h3>
           <p>
-            <strong>{exp.organization}</strong> — {exp.period}
+            <strong>{exp.organization}</strong><span class="period">{exp.period}</span>
           </p>
           {exp.description && <p>{exp.description}</p>}
         </div>
@@ -35,6 +35,7 @@ const { experiences = [] } = Astro.props;
 </section>
 
 <style>
+  .period { margin-left: 1.25rem; }
   .experience {
     margin-bottom: 2rem;
   }

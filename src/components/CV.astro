@@ -31,8 +31,11 @@ const {
 } = Astro.props;
 ---
 
-<section class="cv" id="cv">
-  <h2>CV</h2>
+<section class="cv" id="about">
+  <h2>About Me</h2>
+  <div class="about-layout"><aside><img src="/media/taras-portrait.jpg" alt="Taras Fliorko" width="235" height="300" /><h3>Contact Information</h3><a href="mailto:tfliorko@gmail.com">tfliorko@gmail.com</a></aside><div>
+  <p>I am a final-year Robotics and Automated Systems student at South East Technological University in Carlow, Ireland. I work across mathematical modelling, mechanical design and embedded control, and am preparing for Master’s study in robotics and control.</p>
+  <h3>Research Interests</h3><ul><li>Underactuated robotics and nonlinear dynamics</li><li>Autonomous drones and navigation</li><li>Control theory</li><li>Mathematical modelling and numerical simulation</li><li>Physics and mechanics of robotic systems</li></ul>
 
   <h3>Links</h3>
   <ul class="links-list">
@@ -43,7 +46,7 @@ const {
 
   {education.length > 0 && (
     <>
-      <h3>Education</h3>
+      <h3>Background</h3>
       <div class="edu-list">
         {education.map((edu) => (
           <div class="edu-item">
@@ -82,7 +85,7 @@ const {
       </ul>
     </>
   )}
-</section>
+<h3>Hobbies</h3><p>Playing piano, bouldering and skiing.</p></div></div></section>
 
 <style>
   .cv {
@@ -141,3 +144,5 @@ const {
     margin-bottom: 0.3rem;
   }
 </style>
+
+<style>.about-layout{display:grid;grid-template-columns:235px 1fr;gap:2rem}.about-layout aside img{width:100%;height:auto}.about-layout aside a{overflow-wrap:anywhere}@media(max-width:650px){.about-layout{grid-template-columns:1fr}.about-layout aside img{max-width:235px}}</style>

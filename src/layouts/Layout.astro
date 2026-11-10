@@ -87,6 +87,56 @@ const { title = 'Portfolio', description = 'Academic Research Portfolio' } = Ast
         max-width: 900px;
       }
     </style>
+
+    <style is:global>
+      :root { --ink:#000; --paper:#fff; --panel:#f4f4f4; --lavender:#ede9f5; --lavender-strong:#dcd3ed; --focus:#655279; }
+      ::selection { background:var(--lavender-strong); color:var(--ink); }
+      :root body { max-width:1120px; padding:32px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:15px; line-height:1.7; }
+      :root body h1,:root body h2,:root body h3 { font-family:Arial,'Helvetica Neue',sans-serif; color:var(--ink); text-align:left; }
+      :root body h1 { font-weight:900; font-size:clamp(2rem,5vw,3.5rem); line-height:1.08; letter-spacing:-.035em; }
+      :root body h2 { font-size:1.8rem; font-weight:900; border-top:3px solid var(--ink); padding-top:20px; margin-top:48px; }
+      :root body h2 { position:relative; border-top:0; }
+      :root body h2::after { content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:100vw; height:3px; background:var(--ink); }
+      html { overflow-x:clip; }
+      :root body h2::before, :root body .project-detail > h1::before, :root body .research-subsection > h3::before { content: "// "; color:var(--focus); font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      :root body h3 { font-weight:700; font-size:1.25rem; line-height:1.3; }
+      :root body p,:root body .description p { text-align:left; }
+      :root body a { color:var(--ink); text-underline-offset:4px; }
+      :root body a:hover { color:var(--ink); background:var(--lavender); }
+      :root body :focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+      :root body .header { border-bottom:3px solid var(--ink); margin-bottom:40px; }
+      :root body .navbar { max-width:none; }
+      :root body .nav-links { gap:12px 24px; }
+      :root body .nav-links a { display:inline-block; padding:6px 8px; font-family:Arial,sans-serif; font-weight:700; }
+      :root body .hero { padding:24px 0 40px; }
+      :root body .hero-photo { border:2px solid var(--ink); box-shadow:6px 6px 0 var(--ink); }
+      :root body .tagline { font-size:1rem; font-style:normal; font-weight:400; background:none; border:0; padding:0; }
+      :root body .projects-list { gap:32px; }
+      :root body .project-item,:root body .note-item { border:2px solid var(--ink); padding:24px; box-shadow:6px 6px 0 var(--ink); background:var(--paper); margin-bottom:8px; }
+      :root body .project-item h3 { font-size:1.55rem; margin-bottom:20px; }
+      :root body .project-photo { max-width:100%; max-height:420px; object-fit:contain; background:var(--paper); border:0; }
+      :root body .project-links a,:root body .note-item > a,:root body button { display:inline-block; border:2px solid var(--ink); padding:10px 14px; background:var(--paper); box-shadow:3px 3px 0 var(--ink); color:var(--ink); font-family:inherit; font-size:.8rem; font-weight:700; text-decoration:none; border-radius:0; transition:background-color 150ms,transform 150ms,box-shadow 150ms; }
+      :root body .project-links a:hover,:root body .note-item > a:hover,:root body button:hover { background:var(--lavender-strong); }
+      :root body .project-links a:active,:root body .note-item > a:active,:root body button:active { transform:translate(3px,3px); box-shadow:none; }
+      :root body .project-links { flex-wrap:wrap; gap:16px; }
+      :root body .exp-item { border-left:3px solid var(--ink); padding-left:20px; }
+      :root body .date,:root body .meta,:root body .note-item .date { font-style:normal; font-size:.8rem; }
+      :root body .date { display:inline-block; background:var(--lavender-strong); border:1px solid var(--ink); padding:4px 8px; color:var(--ink); }
+      :root body .about-layout aside img { border:2px solid var(--ink); box-shadow:6px 6px 0 var(--ink); }
+      :root body .project-detail { max-width:100%; }
+      :root body .content { max-width:100%; line-height:1.8; }
+      :root body .technologies li { display:inline-block; padding:4px 8px; margin:4px; background:var(--lavender-strong); border:1px solid var(--ink); font-size:.8rem; }
+      :root body .technologies li::before { content:none; }
+      :root body .technologies ul { margin-left:0; }
+      :root body .gallery-slide img,:root body .gallery-slide video { border:2px solid var(--ink); background:var(--paper); }
+      :root body .project-item > a:hover,.gallery-slide > a:hover { background:var(--paper); }
+      :root body .thumbnails button { box-shadow:none; padding:3px; }
+      :root body .thumbnails button[aria-pressed="true"] { background:var(--lavender-strong); outline:3px solid var(--focus); outline-offset:-3px; }
+      :root body figcaption { font-size:.8rem; line-height:1.6; color:#444; }
+      :root body footer { border-top:2px solid var(--ink); margin-top:64px; padding-top:24px; }
+      @media(max-width:650px) { :root body { padding:20px; font-size:14px; } :root body .project-item,:root body .note-item { padding:16px; box-shadow:4px 4px 0 var(--ink); } :root body .nav-links { gap:6px; } :root body .nav-links a { font-size:.8rem; } :root body .hero-content { gap:20px; } }
+      @media(prefers-reduced-motion:reduce) { html {scroll-behavior:auto;} :root body *,:root body *::before,:root body *::after { transition:none!important; animation:none!important; } }
+    </style>
   </head>
   <body>
     <slot />
